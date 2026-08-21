@@ -46,13 +46,11 @@ python ParkingSpacePicker.py
 ```
 - **Botão Esquerdo do Mouse:** Adiciona uma nova vaga.
 - **Botão Direito do Mouse:** Remove uma vaga existente.
-- **Tecla `q`:** Salva e sai da ferramenta.
 
 ### 4. Executar o Monitoramento em Tempo Real
 ```bash
 python main.py
 ```
-- **Tecla `q`:** Encerra a aplicação.
 
 ---
 
