@@ -94,6 +94,6 @@ Este projeto foi desenvolvido com foco em **estudo prático e validação de con
 - [ ] **Integração com API / Painel Web:** Enviar os dados de vagas em tempo real via API (FastAPI/Flask) para consumo em dashboards web ou painéis do estacionamento.
 
 ## Contato
-
+- Keanulisses@gmail.com
 - LinkedIn:https://www.linkedin.com/in/arthur-kean-5458352bb/
 
