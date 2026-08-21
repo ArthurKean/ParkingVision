@@ -46,13 +46,13 @@ python ParkingSpacePicker.py
 ```
 - **Botão Esquerdo do Mouse:** Adiciona uma nova vaga.
 - **Botão Direito do Mouse:** Remove uma vaga existente.
-- **Tecla `q`:** Salva e sai da ferramenta.
+
 
 ### 4. Executar o Monitoramento em Tempo Real
 ```bash
 python main.py
 ```
-- **Tecla `q`:** Encerra a aplicação.
+
 
 ---
 
@@ -82,6 +82,18 @@ Frame Original (BGR)
 
 ---
 
-## 📄 Licença
+## 📌 Próximos Passos & Limitações no Mundo Real
 
-Este projeto está sob a licença MIT. Sinta-se livre para usar, modificar e distribuir.
+Este projeto foi desenvolvido com foco em **estudo prático e validação de conceitos de Visão Computacional**. Sabendo que em cenários reais dificilmente teremos uma câmera perfeitamente posicionada no topo com iluminação constante, o projeto serve como excelente base para evolução contínua.
+
+### 🚀 O que pode ser aprimorado no futuro (Roadmap):
+
+- [ ] **Suporte a Câmeras em Perspectiva:** Substituir retângulos fixos por polígonos/máscaras dinâmicas (`cv2.fillPoly`) para adaptar a detecção a câmeras em ângulos inclinados.
+- [ ] **Calibração Dinâmica de Iluminação:** Implementar ajuste automático de threshold para responder a mudanças de luz (sombras de nuvens, períodos noturnos ou chuva).
+- [ ] **Evolução para Aprendizado de Máquina (AI/ML):** Integrar modelos de detecção de objetos como **YOLOv8** para classificar veículos de forma independente da posição da câmera.
+- [ ] **Integração com API / Painel Web:** Enviar os dados de vagas em tempo real via API (FastAPI/Flask) para consumo em dashboards web ou painéis do estacionamento.
+
+## Contato
+
+- LinkedIn:https://www.linkedin.com/in/arthur-kean-5458352bb/
+
