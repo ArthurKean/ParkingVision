@@ -51,8 +51,6 @@ python ParkingSpacePicker.py
 ```bash
 python main.py
 ```
-- **Tecla `q`:** Encerra a aplicação.
-
 ---
 
 ## 🔬 Pipeline de Processamento de Imagem
