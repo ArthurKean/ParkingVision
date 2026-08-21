@@ -1,6 +1,6 @@
 # 🚗 Parking Vision AI — Real-Time Parking Space Monitor
 
-![Parking Vision AI Banner](example_no_overlap_hud.png)
+![Parking Vision AI Banner](demo.gif)
 
 Um sistema de **Visão Computacional em Tempo Real** desenvolvido em Python com OpenCV para monitoramento e detecção automática de vagas livres e ocupadas em estacionamentos.
 
