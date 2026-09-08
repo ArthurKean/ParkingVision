@@ -1,6 +1,6 @@
 # 🚗 Parking Vision AI
 
-![Parking Vision AI Banner](demo.gif)
+![Parking Vision AI Banner](images/demo.gif)
 
 Projeto em Python e OpenCV para identificar vagas livres e ocupadas em um vídeo de estacionamento.
 
