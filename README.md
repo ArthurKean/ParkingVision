@@ -1,97 +1,105 @@
-# 🚗 Parking Vision AI — Real-Time Parking Space Monitor
+# 🚗 Parking Vision AI
 
 ![Parking Vision AI Banner](demo.gif)
 
-Um sistema de **Visão Computacional em Tempo Real** desenvolvido em Python com OpenCV para monitoramento e detecção automática de vagas livres e ocupadas em estacionamentos.
+Projeto em Python e OpenCV para identificar vagas livres e ocupadas em um vídeo de estacionamento.
 
----
+As vagas são marcadas manualmente, e o sistema analisa essas regiões a cada frame para estimar a ocupação. O resultado aparece no próprio vídeo, com cores, etiquetas e um painel com os totais.
 
-## 🌟 Funcionalidades
+Desenvolvi este projeto para colocar em prática conceitos de visão computacional, desde o tratamento da imagem até a construção da interface de monitoramento.
 
-- **Monitoramento em Tempo Real:** Processamento contínuo de vídeo com taxa de atualização em alta performance rodando 100% em CPU.
-- **Interface Gráfica Glassmorphism:** Painel superior no estilo HUD translúcido exibindo total de vagas livres, ocupadas, taxa de ocupação (%) e barra de progresso.
-- **Destaque Visual Dinâmico:** Preenchimento semi-transparente (Alpha Blending) e etiquetas de status (`LIVRE` / `OCUPADO`) em cada vaga.
-- **Ferramenta de Mapeamento Interativa:** Script dedicado (`ParkingSpacePicker.py`) para cadastrar/remover vagas com cliques do mouse.
-- **Persistência de Dados:** Salva as coordenadas das vagas em arquivo binário (`CarParkPos`) para reuso.
+## O que o projeto faz
 
----
+- Processa o vídeo continuamente usando a CPU.
+- Destaca cada vaga com uma cor e a indicação `LIVRE` ou `OCUPADO`.
+- Exibe o total de vagas livres, ocupadas e a porcentagem de ocupação.
+- Permite adicionar e remover vagas com o mouse.
+- Salva o mapeamento para reutilizá-lo nas próximas execuções.
 
-## 🛠️ Tecnologias Utilizadas
+A interface usa um painel translúcido e preenchimentos semitransparentes para mostrar as informações sobre o vídeo.
+
+## Tecnologias
 
 - **Python 3.13**
-- **OpenCV (`cv2`):** Processamento Digital de Imagens (Escala de Cinza, Gaussian Blur, Adaptive Threshold, Dilação).
-- **Pillow (PIL):** Renderização de tipografia em alta definição (TrueType) e componentes gráficos HUD.
-- **NumPy:** Manipulação eficiente de matrizes de imagens.
-- **Pickle:** Serialização e persistência de dados das vagas.
+- **OpenCV:** processamento dos frames e análise das vagas.
+- **NumPy:** manipulação das imagens como matrizes.
+- **Pillow:** renderização de textos e elementos do painel.
+- **Pickle:** armazenamento das coordenadas no arquivo `CarParkPos`.
 
----
+## Como funciona
 
-## 🚀 Como Executar o Projeto
+A detecção usa processamento de imagem e contagem de pixels nas regiões mapeadas.
 
-### 1. Clonar o repositório
-```bash
-git clone https://github.com/SEU_USUARIO/ParkingSpaces.git
-cd ParkingSpaces
+Cada frame passa pelas seguintes etapas:
+
+```text
+Frame original
+    ↓
+Conversão para escala de cinza
+    ↓
+Gaussian Blur (3×3)
+    ↓
+Threshold adaptativo invertido
+    ↓
+Filtro de mediana (5×5)
+    ↓
+Dilatação com kernel 3×3
+    ↓
+Contagem de pixels em cada vaga
+    ↓
+Classificação: livre ou ocupada
 ```
 
-### 2. Instalar as dependências
+A contagem é feita com `cv2.countNonZero` na região de cada vaga. Essa informação é usada para definir o status e atualizar o painel.
+
+## Como executar
+
+Com o repositório baixado, abra um terminal na pasta do projeto.
+
+### 1. Instale as dependências
+
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-### 3. Mapear as vagas de estacionamento (Opcional)
-Se desejar adicionar ou remover vagas:
+### 2. Ajuste o mapeamento, se necessário
+
+Para adicionar ou remover vagas:
+
 ```bash
 python ParkingSpacePicker.py
 ```
-- **Botão Esquerdo do Mouse:** Adiciona uma nova vaga.
-- **Botão Direito do Mouse:** Remove uma vaga existente.
 
-### 4. Executar o Monitoramento em Tempo Real
+- **Clique esquerdo:** adiciona uma vaga.
+- **Clique direito:** remove uma vaga existente.
+
+As coordenadas ficam salvas no arquivo `CarParkPos`.
+
+### 3. Inicie o monitoramento
+
 ```bash
 python main.py
 ```
 
----
+## Limitações
 
-## 🔬 Pipeline de Processamento de Imagem
+O projeto foi desenvolvido como exercício prático de visão computacional. A abordagem atual depende do posicionamento da câmera e das condições de iluminação.
 
-```
-Frame Original (BGR)
-   │
-   ▼
-1. cv2.cvtColor ───────► Escala de Cinza
-   │
-   ▼
-2. cv2.GaussianBlur ────► Redução de ruído (3x3)
-   │
-   ▼
-3. cv2.adaptiveThreshold ► Binarização Adaptativa (THRESH_BINARY_INV)
-   │
-   ▼
-4. cv2.medianBlur ──────► Remoção de ruído sal e pimenta (5x5)
-   │
-   ▼
-5. cv2.dilate ──────────► Dilação de bordas (Kernel 3x3)
-   │
-   ▼
-6. cv2.countNonZero ────► Contagem de pixels por Região de Interesse (ROI)
-```
+Como a classificação usa a contagem de pixels, sombras, chuva e mudanças de luz podem interferir no resultado. As vagas também são representadas por retângulos fixos, o que limita o uso com câmeras inclinadas.
 
----
+Para utilizar outro vídeo ou enquadramento, pode ser necessário refazer o mapeamento e ajustar os parâmetros de detecção.
 
-## 📌 Próximos Passos & Limitações no Mundo Real
+## Próximos passos
 
-Este projeto foi desenvolvido com foco em **estudo prático e validação de conceitos de Visão Computacional**. Sabendo que em cenários reais dificilmente teremos uma câmera perfeitamente posicionada no topo com iluminação constante, o projeto serve como excelente base para evolução contínua.
-
-### 🚀 O que pode ser aprimorado no futuro (Roadmap):
-
-- [ ] **Suporte a Câmeras em Perspectiva:** Substituir retângulos fixos por polígonos/máscaras dinâmicas (`cv2.fillPoly`) para adaptar a detecção a câmeras em ângulos inclinados.
-- [ ] **Calibração Dinâmica de Iluminação:** Implementar ajuste automático de threshold para responder a mudanças de luz (sombras de nuvens, períodos noturnos ou chuva).
-- [ ] **Evolução para Aprendizado de Máquina (AI/ML):** Integrar modelos de detecção de objetos como **YOLOv8** para classificar veículos de forma independente da posição da câmera.
-- [ ] **Integração com API / Painel Web:** Enviar os dados de vagas em tempo real via API (FastAPI/Flask) para consumo em dashboards web ou painéis do estacionamento.
+- [ ] Mapear vagas com polígonos para acompanhar melhor a perspectiva da câmera.
+- [ ] Adaptar os parâmetros de detecção às mudanças de iluminação.
+- [ ] Testar a detecção de veículos com YOLOv8.
+- [ ] Disponibilizar os dados de ocupação por uma API.
+- [ ] Criar um painel web para acompanhar o estacionamento.
 
 ## Contato
-- Keanulisses@gmail.com
-- LinkedIn:https://www.linkedin.com/in/arthur-kean-5458352bb/
+
+- [E-mail](mailto:Keanulisses@gmail.com)
+- [LinkedIn](https://www.linkedin.com/in/arthur-kean-5458352bb/)
+
 
